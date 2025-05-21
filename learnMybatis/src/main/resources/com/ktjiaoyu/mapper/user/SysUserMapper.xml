@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 系统用户数据访问映射 -->
+<mapper namespace="com.ktjiaoyu.mapper.user.SysUserMapper">
+    <!-- 统计系统用户总数 -->
+    <select id="count" resultType="int">
+        SELECT COUNT(1)
+        FROM sys_user
+    </select>
+</mapper>

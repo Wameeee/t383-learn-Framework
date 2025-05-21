@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <properties resource="database.properties"/>
+    <!-- 全局参数设置 -->
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+
+    <!-- 环境配置 -->
+    <environments default="development">
+        <environment id="development">
+            <!-- 事务管理类型 -->
+            <transactionManager type="JDBC"/>
+            <!-- 数据源配置 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 映射器 -->
+    <mappers>
+        <mapper resource="com/ktjiaoyu/mapper/user/SysUserMapper.xml"/>
+    </mappers>
+</configuration>
