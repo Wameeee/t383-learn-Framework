@@ -9,9 +9,13 @@
         <setting name="logImpl" value="LOG4J"/>
     </settings>
 
+    <typeAliases>
+        <package name="com.ktjiaoyu.entity"/>
+    </typeAliases>
     <!-- 环境配置 -->
-    <environments default="development">
-        <environment id="development">
+    <environments default="dev">
+        <!--开发环境-->
+        <environment id="dev">
             <!-- 事务管理类型 -->
             <transactionManager type="JDBC"/>
             <!-- 数据源配置 -->

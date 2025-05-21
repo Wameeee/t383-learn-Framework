@@ -1,6 +1,7 @@
 package com.ktjiaoyu.mapper.user;
 
 import com.ktjiaoyu.entity.SysUser;
+import com.ktjiaoyu.utils.MyBatisUtils;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -16,7 +17,7 @@ class SysUserMapperTest {
 
     @Test
     void count() throws Exception {
-        SqlSession sqlSession = null;
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
         InputStream is = null;
 
         try {
@@ -36,23 +37,17 @@ class SysUserMapperTest {
             logger.error("执行count测试时出错", e);
             throw e; // 重新抛出异常使测试失败
         } finally {
-            // 4. 安全关闭资源
-            if (sqlSession != null) {
-                try {
-                    sqlSession.close();
-                } catch (Exception e) {
-                    logger.error("关闭sqlSession时出错", e);
-                }
-            }
-            if (is != null) {
-                is.close();
-            }
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+        if (is != null) {
+            is.close();
         }
     }
 
+
     @Test
     public void testUserListQuery() throws Exception {
-        SqlSession sqlSession = null;
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
         List<SysUser> userList = null;
         try {
             // 读取配置文件
@@ -66,10 +61,7 @@ class SysUserMapperTest {
             //  创建mapper实例，调用查询语句
             userList = sqlSession.getMapper(SysUserMapper.class).getUserList();
         } finally {
-            // 关闭SqlSession
-            if (sqlSession != null) {
-                sqlSession.close();
-            }
+           MyBatisUtils.closeSqlSession(sqlSession);
         }
         if (userList != null) {
             //日志循环打印

@@ -1,5 +1,7 @@
 package com.ktjiaoyu.entity;
 
+import org.apache.ibatis.type.Alias;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -7,6 +9,7 @@ import java.util.Objects;
 /**
  * 系统用户实体类
  */
+
 public class SysUser implements Serializable {
 
     private static final long serialVersionUID = 1L;

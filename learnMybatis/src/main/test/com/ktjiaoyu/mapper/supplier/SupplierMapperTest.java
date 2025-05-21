@@ -1,6 +1,7 @@
 package com.ktjiaoyu.mapper.supplier;
 
 import com.ktjiaoyu.entity.Supplier;
+import com.ktjiaoyu.utils.MyBatisUtils;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -17,7 +18,7 @@ class SupplierMapperTest {
 
     @Test
     void getSupplierList() throws Exception {
-        SqlSession sqlSession = null;
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
         List<Supplier> supplierList = null;
 
         try {
@@ -32,15 +33,13 @@ class SupplierMapperTest {
             }
 
         } finally {
-            if (sqlSession != null) {
-                sqlSession.close();
-            }
+            MyBatisUtils.closeSqlSession(sqlSession);
         }
     }
 
     @Test
     void supplierCount() throws Exception {
-        SqlSession sqlSession = null;
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
         InputStream is = null;
 
         try {
@@ -61,10 +60,7 @@ class SupplierMapperTest {
             logger.debug("供货商统计结果: " + count);
 
         } finally {
-            // 4. 安全关闭资源
-            if (sqlSession != null) {
-                sqlSession.close();
-            }
+           MyBatisUtils.closeSqlSession(sqlSession);
             if (is != null) {
                 is.close();
             }
