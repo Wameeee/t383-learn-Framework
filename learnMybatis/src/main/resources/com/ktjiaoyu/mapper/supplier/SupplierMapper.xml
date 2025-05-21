@@ -7,7 +7,7 @@
         SELECT *
         FROM supplier
     </select>
-    <select id="supplierCount" resultType="java.lang.Integer">
+    <select id="count" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM supplier
     </select>

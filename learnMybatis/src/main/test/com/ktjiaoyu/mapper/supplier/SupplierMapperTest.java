@@ -57,7 +57,7 @@ class SupplierMapperTest {
             sqlSession = factory.openSession();
 
             // 3. 执行查询
-            int count = sqlSession.getMapper(SupplierMapper.class).supplierCount();
+            int count = sqlSession.getMapper(SupplierMapper.class).count();
             logger.debug("供货商统计结果: " + count);
 
         } finally {
