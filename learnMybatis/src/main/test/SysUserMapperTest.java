@@ -68,13 +68,15 @@ class SysUserMapperTest {
             InputStream is = Resources.getResourceAsStream(resource);
             // 使用SqlSessionFactoryBuilder读取配置文件并构建 ， SqlSessionFactory实例
             SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
-            // 创建Sqlsession实例
+            // 创建sqlSession实例
             sqlSession =factory.openSession();
             //  创建mapper实例，调用查询语句
             userList = sqlSession.getMapper(SysUserMapper.class).getUserList();
         }finally{
             // 关闭SqlSession
-            sqlSession.close();
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
         }
         if (userList !=null){
             //日志循环打印
