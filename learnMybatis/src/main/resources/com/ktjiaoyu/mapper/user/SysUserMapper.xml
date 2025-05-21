@@ -8,4 +8,8 @@
         SELECT COUNT(1)
         FROM sys_user
     </select>
+    <!-- 查询用户列表-->
+    <select id="getUserList" resultType="com.ktjiaoyu.entity.SysUser">
+        SELECT * FROM sys_user
+    </select>
 </mapper>
