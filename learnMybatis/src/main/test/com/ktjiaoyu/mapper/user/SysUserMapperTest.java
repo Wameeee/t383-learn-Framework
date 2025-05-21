@@ -1,5 +1,6 @@
+package com.ktjiaoyu.mapper.user;
+
 import com.ktjiaoyu.entity.SysUser;
-import com.ktjiaoyu.mapper.user.SysUserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -58,10 +59,10 @@ class SysUserMapperTest {
     }
 
     @Test
-    public void testUserListQuery() throws  Exception{
+    public void testUserListQuery() throws Exception {
         SqlSession sqlSession = null;
         List<SysUser> userList = null;
-        try{
+        try {
             // 读取配置文件
             String resource = "mybatis-config.xml";
             // 获取配置文件输入流
@@ -69,19 +70,19 @@ class SysUserMapperTest {
             // 使用SqlSessionFactoryBuilder读取配置文件并构建 ， SqlSessionFactory实例
             SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
             // 创建sqlSession实例
-            sqlSession =factory.openSession();
+            sqlSession = factory.openSession();
             //  创建mapper实例，调用查询语句
             userList = sqlSession.getMapper(SysUserMapper.class).getUserList();
-        }finally{
+        } finally {
             // 关闭SqlSession
             if (sqlSession != null) {
                 sqlSession.close();
             }
         }
-        if (userList !=null){
+        if (userList != null) {
             //日志循环打印
-            for(SysUser user: userList){
-                logger.debug("testUserListQuery account" + user.getAccount()+" and realName:" +user.getRealName());
+            for (SysUser user : userList) {
+                logger.debug("testUserListQuery account" + user.getAccount() + " and realName:" + user.getRealName());
             }
         }
     }

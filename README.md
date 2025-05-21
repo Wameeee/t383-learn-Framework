@@ -22,9 +22,13 @@ t383-learn-Framework
             │   └── com/
             │       └── ktjiaoyu/
             │           ├── entity/
-            │           │   └── SysUser.java
+            │           │   ├── SysUser.java
+            │           │   ├── Supplier.java
             │           └── mapper/
-            │               └── user/
+            │               ├──supplier
+            │               │   └── SupplierMapper.java
+            │               │  
+            │               ├── user/
             │                   └── SysUserMapper.java
             ├── resources/
             │   ├── mybatis-config.xml
@@ -33,10 +37,14 @@ t383-learn-Framework
             │   └── com/
             │       └── ktjiaoyu/
             │           └── mapper/
-            │               └── user/
+            │               ├── supplier/
+            │                   └── SupplierMapper.xml    
+            │               ├──  user/
             │                   └── SysUserMapper.xml
             ├── test/
-            │   └── SysUserMapperTest.java
+            │   ├── com.ktjiaoyu.mapper.user.SysUserMapperTest.java
+            │   ├──com.ktjiaoyu.mapper.supplier.SupplierMapperTest.java
+            │
             └── webapp/
                 ├── WEB-INF/
                 │   └── web.xml
