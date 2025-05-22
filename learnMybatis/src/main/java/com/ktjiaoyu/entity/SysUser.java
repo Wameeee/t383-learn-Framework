@@ -22,7 +22,7 @@ public class SysUser implements Serializable {
     private Date birthday;
     private String address;
     private String phone;
-    private Integer reloId;
+    private Integer roleId;
     private Integer createUserId;
     private Date createTime;
     private Integer updateUserId;
@@ -92,12 +92,12 @@ public class SysUser implements Serializable {
         this.phone = phone;
     }
 
-    public Integer getReloId() {
-        return reloId;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setReloId(Integer reloId) {
-        this.reloId = reloId;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     public Integer getCreateUserId() {
