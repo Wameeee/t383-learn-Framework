@@ -1,6 +1,7 @@
 package com.ktjiaoyu.mapper.supplier;
 
 import com.ktjiaoyu.entity.Supplier;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

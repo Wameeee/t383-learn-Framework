@@ -1,7 +1,5 @@
 package com.ktjiaoyu.entity;
 
-import org.apache.ibatis.type.Alias;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -27,6 +25,15 @@ public class SysUser implements Serializable {
     private Date createTime;
     private Integer updateUserId;
     private Date updateTime;
+    private String userRoleName;
+
+    public String getUserRoleName() {
+        return userRoleName;
+    }
+
+    public void setUserRoleName(String userRoleName) {
+        this.userRoleName = userRoleName;
+    }
 
     public Integer getId() {
         return id;
@@ -142,7 +149,7 @@ public class SysUser implements Serializable {
                 ", birthday=" + birthday +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
-                ", reloId=" + reloId +
+                ", roleId=" + roleId +
                 ", createUserId=" + createUserId +
                 ", createTime=" + createTime +
                 ", updateUserId=" + updateUserId +

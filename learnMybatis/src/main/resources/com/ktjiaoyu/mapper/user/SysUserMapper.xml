@@ -13,4 +13,42 @@
         SELECT *
         FROM sys_user
     </select>
+    <!-- 根据姓名查询用户列表-->
+    <select id="getUserListByName" resultType="SysUser">
+        SELECT *
+        FROM sys_user
+        WHERE realName LIKE CONCAT('%', #{param}, '%')
+    </select>
+    <!-- 查询用户列表-->
+    <select id="getUserListByEntity" resultType="SysUser">
+        SELECT *
+        FROM sys_user
+        WHERE realName LIKE CONCAT('%', #{realName}, '%')
+          AND roleId = #{roleId}
+    </select>
+    <select id="getUserListByMap" resultType="SysUser">
+        SELECT *
+        FROM sys_user
+        WHERE realName LIKE CONCAT('%'#{rName}, '%')
+          AND roleId = #{rId};
+    </select>
+    <select id="getUserListByParams" resultType="SysUser">
+        SELECT *
+        FROM sys_user
+        WHERE realName like CONCAT('%' #{realName}, '%')
+          AND roleID = #{roleId}
+    </select>
+    <select id="getUserListWithRoleName" parameterType="sysUser" resultMap="userWithRoleName">
+        SELECT u.*, r.roleName
+        FROM sys_user u,
+             sys_role r
+        WHERE u.realName LIKE CONCAT('%', #{realName}, '%')
+          AND u.roleId = #{roleId}
+          AND u.roleId = r.id
+    </select>
+    <resultMap id="userWithRoleName" type="sysUser">
+        <id property="id" column="id"/>
+        <result property="userRoleName" column="roleName"/>
+    </resultMap>
+
 </mapper>

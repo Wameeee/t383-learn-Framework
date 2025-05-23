@@ -32,5 +32,6 @@
     <mappers>
         <mapper resource="com/ktjiaoyu/mapper/user/SysUserMapper.xml"/>
         <mapper resource="com/ktjiaoyu/mapper/supplier/SupplierMapper.xml"/>
+        <mapper resource="com/ktjiaoyu/mapper/storage_record/storage_recordMapper.xml"/>
     </mappers>
 </configuration>
