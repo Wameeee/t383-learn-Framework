@@ -1,5 +1,6 @@
 package com.ktjiaoyu.mapper.supplier;
 
+import com.ktjiaoyu.entity.StorageRecord;
 import com.ktjiaoyu.entity.Supplier;
 import com.ktjiaoyu.utils.MyBatisUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -45,6 +46,31 @@ class SupplierMapperTest {
             if (is != null) {
                 is.close();
             }
+        }
+    }
+
+    @Test
+    void testGetSupplierListAndStorageRecordListBySupId() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        try {
+            List<Supplier> supplierList = sqlSession.getMapper(SupplierMapper.class).getSupplierListAndStorageRecordListBySupId(100);
+            for (Supplier supplier : supplierList) {
+                logger.debug("supplier===>  供货商Id:" + supplier.getId() +
+                        ",供货商编码:" + supplier.getSupCode() +
+                        ",供货商名称:" + supplier.getSupName() +
+                        ",联系人:" + supplier.getSupContact() +
+                        ",联系电话:" + supplier.getSupPhone()
+                );
+                for (StorageRecord storageRecord : supplier.getStorageRecord()) {
+                    logger.debug("storageRecord===> 入库记录编码:" + storageRecord.getSrCode() +
+                            ",商品名称:" + storageRecord.getGoodsName() +
+                            ",商品总额:" + storageRecord.getTotalAmount() +
+                            ",支付状态:" + storageRecord.getPayStatus()
+                    );
+                }
+            }
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
         }
     }
 }

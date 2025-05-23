@@ -2,6 +2,7 @@ package com.ktjiaoyu.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Supplier implements Serializable {
 
@@ -18,6 +19,15 @@ public class Supplier implements Serializable {
     private Date createdTime;
     private Date updatedTime;
     private Integer updatedUserId;
+    private List<StorageRecord> storageRecord;
+
+    public List<StorageRecord> getStorageRecord() {
+        return storageRecord;
+    }
+
+    public void setStorageRecord(List<StorageRecord> storageRecord) {
+        this.storageRecord = storageRecord;
+    }
 
     public Integer getId() {
         return id;

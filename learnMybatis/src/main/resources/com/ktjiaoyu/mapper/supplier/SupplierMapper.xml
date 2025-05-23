@@ -11,4 +11,35 @@
         SELECT COUNT(*)
         FROM supplier
     </select>
+    <select id="getSupplierListAndStorageRecordListBySupId" resultMap="supplierListAndStorageRecordList">
+        SELECT sl.id as sup_id,
+               sl.supCode,
+               sl.supName,
+               sl.supContact,
+               sl.supPhone,
+               sr.id as sr_id,
+               sr.srCode,
+               sr.goodsName,
+               sr.totalAmount,
+               sr.payStatus
+        FROM supplier sl,
+             storage_record sr
+        WHERE sl.id = #{id}
+          AND sl.id = sr.supplierId
+    </select>
+
+    <resultMap id="supplierListAndStorageRecordList" type="Supplier">
+        <id property="id" column="sup_id"/>
+        <result property="supCode" column="supCode"/>
+        <result property="supName" column="supName"/>
+        <result property="supContact" column="supContact"/>
+        <result property="supPhone" column="supPhone"/>
+        <collection property="storageRecord" ofType="storageRecord">
+            <id property="id" column="sr_id"/>
+            <result property="srCode" column="srCode"/>
+            <result property="goodsName" column="goodsName"/>
+            <result property="totalAmount" column="totalAmount"/>
+            <result property="payStatus" column="payStatus"/>
+        </collection>
+    </resultMap>
 </mapper>

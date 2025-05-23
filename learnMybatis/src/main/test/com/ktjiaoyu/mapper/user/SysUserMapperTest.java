@@ -181,14 +181,14 @@ class SysUserMapperTest {
         try {
             List<SysUser> userList = sqlSession.getMapper(SysUserMapper.class).getUserAndAddressByUserId(1);
             for (SysUser user : userList) {
-               logger.debug("userList ===> 账号:" + user.getAccount()+",姓名:"+user.getRealName());
-               for (Address address : user.getAddressList()){
-                   logger.debug("address ===> 地址Id:"+address.getId()+
-                           ",联系人姓名:"+address.getContact()+
-                           ",详情地址:"+address.getAddressDesc()+
-                           ",电话"+address.getTel()+
-                           ",邮政编码"+address.getPostCode());
-               }
+                logger.debug("userList ===> 账号:" + user.getAccount() + ",姓名:" + user.getRealName());
+                for (Address address : user.getAddressList()) {
+                    logger.debug("address ===> 地址Id:" + address.getId() +
+                            ",联系人姓名:" + address.getContact() +
+                            ",详情地址:" + address.getAddressDesc() +
+                            ",电话" + address.getTel() +
+                            ",邮政编码" + address.getPostCode());
+                }
             }
         } finally {
             MyBatisUtils.closeSqlSession(sqlSession);
