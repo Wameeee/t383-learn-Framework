@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -189,6 +190,97 @@ class SysUserMapperTest {
                             ",电话" + address.getTel() +
                             ",邮政编码" + address.getPostCode());
                 }
+            }
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+    }
+
+    @Test
+    public void testAddUser() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        try {
+            // 创建一个新的SysUser对象
+            SysUser user = new SysUser();
+            user.setAccount("testuser");
+            user.setRealName("测试用户");
+            user.setPassword("123456");
+            user.setSex(1);
+            user.setBirthday(new Date());
+            user.setPhone("13800138000");
+            user.setAddress("北京市海淀区");
+            user.setRoleId(1);
+            user.setCreatedUserId(1);
+            user.setCreatedTime(new Date());
+
+            // 调用addUser方法
+            int result = sqlSession.getMapper(SysUserMapper.class).addUser(user);
+
+            // 提交事务
+            sqlSession.commit();
+
+            // 验证结果
+            logger.debug("添加用户结果: " + result);
+            if (result > 0) {
+                logger.debug("添加用户成功，用户账号: " + user.getAccount() + ", 真实姓名: " + user.getRealName());
+            } else {
+                logger.debug("添加用户失败");
+            }
+        } finally {
+            // 关闭SqlSession
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+    }
+
+    @Test
+    public void testUpdateUser() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        try {
+            // 创建一个新的SysUser对象
+            SysUser user = new SysUser();
+            // 设置要更新的用户ID
+            user.setId(1); // 假设ID为1的用户已存在
+            user.setAccount("updateduser");
+            user.setRealName("更新的用户");
+            user.setPassword("654321");
+            user.setSex(1);
+            user.setBirthday(new Date());
+            user.setPhone("13900139000");
+            user.setAddress("上海市浦东新区");
+            user.setRoleId(2);
+            user.setUpdateUserId(1);
+            user.setUpdateTime(new Date());
+
+            // 调用updateUser方法
+            int result = sqlSession.getMapper(SysUserMapper.class).updateUser(user);
+
+            // 提交事务
+            sqlSession.commit();
+
+            // 验证结果
+            logger.debug("更新用户结果: " + result);
+            if (result > 0) {
+                logger.debug("更新用户成功，用户ID: " + user.getId() + ", 账号: " + user.getAccount() + ", 真实姓名: " + user.getRealName());
+            } else {
+                logger.debug("更新用户失败");
+            }
+        } finally {
+            // 关闭SqlSession
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+    }
+
+    @Test
+    void testDeleteUserById() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        try {
+            int result = sqlSession.getMapper(SysUserMapper.class).deleteUserById(1);
+            sqlSession.commit();
+            logger.debug("删除用户结果:" + result);
+            if (result > 0) {
+                logger.debug("删除用户成功");
+            } else {
+                logger.debug("删除用户失败");
             }
         } finally {
             MyBatisUtils.closeSqlSession(sqlSession);

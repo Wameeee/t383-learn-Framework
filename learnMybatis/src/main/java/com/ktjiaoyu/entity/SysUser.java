@@ -17,13 +17,13 @@ public class SysUser implements Serializable {
     private String account;
     private String password;
     private String realName;
-    private String sex;
+    private Integer sex;
     private Date birthday;
     private String address;
     private String phone;
     private Integer roleId;
-    private Integer createUserId;
-    private Date createTime;
+    private Integer createdUserId;
+    private Date createdTime;
     private Integer updateUserId;
     private Date updateTime;
     private String userRoleName;
@@ -87,11 +87,11 @@ public class SysUser implements Serializable {
         this.realName = realName;
     }
 
-    public String getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
@@ -127,20 +127,20 @@ public class SysUser implements Serializable {
         this.roleId = roleId;
     }
 
-    public Integer getCreateUserId() {
-        return createUserId;
+    public Integer getCreatedUserId() {
+        return createdUserId;
     }
 
-    public void setCreateUserId(Integer createUserId) {
-        this.createUserId = createUserId;
+    public void setCreatedUserId(Integer createdUserId) {
+        this.createdUserId = createdUserId;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreatedTime() {
+        return createdTime;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
     }
 
     public Integer getUpdateUserId() {
@@ -170,8 +170,8 @@ public class SysUser implements Serializable {
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", roleId=" + roleId +
-                ", createUserId=" + createUserId +
-                ", createTime=" + createTime +
+                ", createdUserId=" + createdUserId +
+                ", createdTime=" + createdTime +
                 ", updateUserId=" + updateUserId +
                 ", updateTime=" + updateTime +
                 '}';

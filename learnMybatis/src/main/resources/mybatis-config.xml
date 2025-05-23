@@ -6,7 +6,22 @@
     <properties resource="database.properties"/>
     <!-- 全局参数设置 -->
     <settings>
+        <!-- 日志实现 -->
         <setting name="logImpl" value="LOG4J"/>
+        <!-- 自动映射行为 -->
+        <setting name="autoMappingBehavior" value="FULL"/>
+        <!-- 开启驼峰命名自动映射 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 开启二级缓存 -->
+        <setting name="cacheEnabled" value="true"/>
+        <!-- 设置超时时间 -->
+        <setting name="defaultStatementTimeout" value="25"/>
+        <!-- 允许JDBC生成主键 -->
+        <setting name="useGeneratedKeys" value="true"/>
+        <!-- 开启延迟加载 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 将执行的SQL语句显示在控制台上 -->
+        <setting name="logPrefix" value="dao."/>
     </settings>
 
     <typeAliases>
@@ -24,6 +39,10 @@
                 <property name="url" value="${jdbc.url}"/>
                 <property name="username" value="${jdbc.username}"/>
                 <property name="password" value="${jdbc.password}"/>
+                <!-- 连接池配置 -->
+                <property name="poolMaximumActiveConnections" value="20"/>
+                <property name="poolMaximumIdleConnections" value="5"/>
+                <property name="poolMaximumCheckoutTime" value="20000"/>
             </dataSource>
         </environment>
     </environments>

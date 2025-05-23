@@ -80,4 +80,27 @@ public interface SysUserMapper {
      */
     List<SysUser> getUserAndAddressByUserId(@Param("userId") Integer userId);
 
+    /**
+     * 添加用户
+     *
+     * @param sysUser
+     * @return
+     */
+    int addUser(SysUser sysUser);
+
+    /**
+     * 修改用户
+     *
+     * @param sysUser
+     * @return
+     */
+    int updateUser(SysUser sysUser);
+
+    /**
+     * 根据id删除用户信息
+     *
+     * @param id
+     * @return
+     */
+    int deleteUserById(@Param("id") Integer id);
 }

@@ -2,6 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ktjiaoyu.mapper.supplier.SupplierMapper">
+    <insert id="addSupplier" parameterType="supplier">
+        INSERT INTO supplier (supCode, supName, supDesc, supContact, supPhone, supAddress, supFax, bizPicPath,
+                              createdUserId, createdTime)
+        VALUES (#{supCode}, #{supName}, #{supDesc}, #{supContact}, #{supPhone},
+                #{supAddress}, #{supFax}, #{bizPicPath}, #{createdUserId}, #{createdTime})
+    </insert>
+    <update id="updateSupplierById" parameterType="supplier">
+        UPDATE supplier
+        SET supCode=#{supCode},
+            supName=#{supName},
+            supDesc=#{supDesc},
+            supContact=#{supContact},
+            supPhone=#{supPhone},
+            supAddress=#{supAddress},
+            supFax=#{supFax},
+            bizPicPath=#{bizPicPath},
+            updatedUserId=#{updatedUserId},
+            updatedTime=#{updatedTime}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteSupplierById" parameterType="supplier">
+        DELETE
+        FROM supplier
+        WHERE id = #{id}
+    </delete>
 
     <select id="getSupplierList" resultType="Supplier">
         SELECT *

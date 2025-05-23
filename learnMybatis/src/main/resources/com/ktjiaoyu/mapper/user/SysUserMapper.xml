@@ -3,6 +3,31 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 系统用户数据访问映射 -->
 <mapper namespace="com.ktjiaoyu.mapper.user.SysUserMapper">
+    <insert id="addUser" parameterType="sysUser">
+        INSERT INTO sys_user (account, realName, password, sex, birthday, phone, address, roleId, createdUserId,
+                              createdTime)
+        VALUES (#{account}, #{realName}, #{password}, #{sex}, #{birthday}, #{phone}, #{address}, #{roleId},
+                #{createdUserId}, #{createdTime})
+    </insert>
+    <update id="updateUser" parameterType="sysUser">
+        UPDATE sys_user
+        SET account=#{account},
+            realName=#{realName},
+            password=#{password},
+            sex=#{sex},
+            phone=#{phone},
+            address=#{address},
+            birthday=#{birthday},
+            roleId=#{roleId},
+            updatedUserId=#{updateUserId},
+            updatedTime=#{updateTime}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteUserById" parameterType="sysUser">
+        DELETE
+        FROM sys_user
+        WHERE id = #{id}
+    </delete>
     <!-- 统计系统用户总数 -->
     <select id="count" resultType="int">
         SELECT COUNT(1)

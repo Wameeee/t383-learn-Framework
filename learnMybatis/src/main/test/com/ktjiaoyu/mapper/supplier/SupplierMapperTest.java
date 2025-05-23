@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 
 class SupplierMapperTest {
@@ -68,6 +69,78 @@ class SupplierMapperTest {
                             ",支付状态:" + storageRecord.getPayStatus()
                     );
                 }
+            }
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+
+    }
+
+    @Test
+    void testAddSupplier() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        try {
+            Supplier supplier = new Supplier();
+            supplier.setSupCode("1");
+            supplier.setSupName("皮炎");
+            supplier.setSupDesc("卖皮炎的");
+            supplier.setSupContact("雷丰璇");
+            supplier.setSupPhone("13800022222");
+            supplier.setSupAddress("湖南省娄底市娄星区");
+            supplier.setSupFax("0739-88888887");
+            supplier.setBizPicPath(null);
+            supplier.setCreatedUserId(1);
+            supplier.setCreatedTime(new Date());
+            int result = sqlSession.getMapper(SupplierMapper.class).addSupplier(supplier);
+            sqlSession.commit();
+            if (result > 0) {
+                logger.debug("添加成功！");
+            } else {
+                logger.debug("添加失败");
+            }
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+    }
+
+    @Test
+    void testUpdateSupplierById() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        try {
+            Supplier supplier = new Supplier();
+            supplier.setId(116);
+            supplier.setSupCode("1");
+            supplier.setSupName("皮炎");
+            supplier.setSupDesc("卖皮炎的");
+            supplier.setSupContact("雷丰璇");
+            supplier.setSupPhone("13800022222");
+            supplier.setSupAddress("湖南省郴州市苏仙区北大青鸟");
+            supplier.setSupFax("0739-88888887");
+            supplier.setBizPicPath(null);
+            supplier.setUpdatedUserId(1);
+            supplier.setUpdatedTime(new Date());
+            int result = sqlSession.getMapper(SupplierMapper.class).updateSupplierById(supplier);
+            sqlSession.commit();
+            if (result > 0) {
+                logger.debug("更新成功！");
+            } else {
+                logger.debug("更新失败");
+            }
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+    }
+
+    @Test
+    void testDeleteSupplierById() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        try {
+            int result = sqlSession.getMapper(SupplierMapper.class).deleteSupplierById(116);
+            sqlSession.commit();
+            if (result > 0) {
+                logger.debug("删除成功！");
+            } else {
+                logger.debug("删除失败");
             }
         } finally {
             MyBatisUtils.closeSqlSession(sqlSession);

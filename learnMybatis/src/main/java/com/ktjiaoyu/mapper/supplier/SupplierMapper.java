@@ -24,8 +24,32 @@ public interface SupplierMapper {
     /**
      * 根据供货商id查询供货商信息和入库记录
      *
-     * @param SupId
+     * @param id
      * @return 供货商信息, 入库记录
      */
     List<Supplier> getSupplierListAndStorageRecordListBySupId(@Param("id") Integer id);
+
+    /**
+     * 添加供货商
+     *
+     * @param supplier
+     * @return
+     */
+    int addSupplier(Supplier supplier);
+
+    /**
+     * 根据供货商id添加供货商
+     *
+     * @param supplier
+     * @return result
+     */
+    int updateSupplierById(Supplier supplier);
+
+    /**
+     * 根据供货商id删除供货商信息
+     *
+     * @param id
+     * @return result
+     */
+    int deleteSupplierById(Integer id);
 }
