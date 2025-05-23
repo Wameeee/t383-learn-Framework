@@ -53,4 +53,25 @@ class StorageRecordMapperTest {
             MyBatisUtils.closeSqlSession(sqlSession);
         }
     }
+
+    @Test
+    public void testGetStorageRecordListAndSupplierList() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        try {
+            List<StorageRecord> storageRecordList = sqlSession.getMapper(storage_recordMapper.class).getStorageRecordListAndSupplierList(100);
+            for (StorageRecord storageRecord : storageRecordList) {
+                logger.debug("Storage_record ===> 入库记录编码:" + storageRecord.getSrCode() +
+                        ",商品名称:" + storageRecord.getGoodsName() +
+                        ",供货商编码:" + storageRecord.getSupplier().getSupCode() +
+                        ",供货商名称:" + storageRecord.getSupplier().getSupName() +
+                        ",联系人:" + storageRecord.getSupplier().getSupContact() +
+                        ",联系电话:" + storageRecord.getSupplier().getSupPhone() +
+                        ",商品总额:" + storageRecord.getTotalAmount() +
+                        ",支付状态:" + storageRecord.getPayStatus()
+                );
+            }
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+    }
 }

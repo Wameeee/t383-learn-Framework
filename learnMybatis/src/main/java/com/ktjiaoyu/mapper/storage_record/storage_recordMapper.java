@@ -26,4 +26,12 @@ public interface storage_recordMapper {
      * @return 商品详情
      */
     List<StorageRecord> getStorageRecordWithSupplierName(StorageRecord storageRecord);
+
+    /**
+     * 根据供货商id查询入库表信息，供货商名称信息
+     *
+     * @param supplierId
+     * @return 入库表信息，供货商名称信息
+     */
+    List<StorageRecord> getStorageRecordListAndSupplierList(@Param("supplierId") Integer supplierId);
 }

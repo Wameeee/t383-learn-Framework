@@ -18,6 +18,30 @@
           AND sr.supplierId = #{supplierId}
           AND sr.supplierId = sl.id
     </select>
+    <select id="getStorageRecordListAndSupplierList" resultMap="storageRecordListAndSupplierList">
+        SELECT sr.*, sl.id as sId, sl.supName, sl.supCode, sl.supContact, sl.supPhone
+        FROM storage_record sr,
+             supplier sl
+        WHERE sr.supplierId = #{supplierId}
+          AND sr.supplierId = sl.id
+    </select>
+
+    <resultMap id="storageRecordListAndSupplierList" type="storageRecord">
+        <id property="id" column="id"/>
+        <result property="goodsName" column="goodsName"/>
+        <result property="srCode" column="srCode"/>
+        <result property="totalAmount" column="totalAmount"/>
+        <result property="payStatus" column="payStatus"/>
+        <association property="supplier" javaType="supplier">
+            <id property="id" column="sId"/>
+            <result property="supName" column="supName"/>
+            <result property="supCode" column="supCode"/>
+            <result property="supContact" column="supContact"/>
+            <result property="supPhone" column="supPhone"/>
+        </association>
+    </resultMap>
+
+
     <resultMap id="storageRecordWithSupplierName" type="storageRecord">
         <id property="id" column="id"/>
         <result property="supplierName" column="supName"/>

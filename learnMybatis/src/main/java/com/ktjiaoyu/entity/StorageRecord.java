@@ -18,6 +18,15 @@ public class StorageRecord implements Serializable {
     private Integer updatedUserId;
     private Date updatedTime;
     private String supplierName;
+    private Supplier supplier;
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
 
     public String getSupplierName() {
         return supplierName;

@@ -72,6 +72,12 @@ public interface SysUserMapper {
      */
     List<SysUser> getUserListByRoleId(@Param("roleId") Integer roleId);
 
+    /**
+     * 根据角色id查询用户，包括地址信息
+     *
+     * @param userId
+     * @return 用户，包括地址信息
+     */
     List<SysUser> getUserAndAddressByUserId(@Param("userId") Integer userId);
 
 }
