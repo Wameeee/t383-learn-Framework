@@ -2,6 +2,7 @@ package com.ktjiaoyu.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -26,6 +27,25 @@ public class SysUser implements Serializable {
     private Integer updateUserId;
     private Date updateTime;
     private String userRoleName;
+    private SysRole sysRole;
+    private List<Address> addressList;
+
+
+    public List<Address> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
+    }
+
+    public SysRole getSysRole() {
+        return sysRole;
+    }
+
+    public void setSysRole(SysRole sysRole) {
+        this.sysRole = sysRole;
+    }
 
     public String getUserRoleName() {
         return userRoleName;

@@ -1,5 +1,6 @@
 package com.ktjiaoyu.mapper.user;
 
+import com.ktjiaoyu.entity.Address;
 import com.ktjiaoyu.entity.SysUser;
 import com.ktjiaoyu.utils.MyBatisUtils;
 import org.apache.ibatis.io.Resources;
@@ -63,7 +64,7 @@ class SysUserMapperTest {
             //  创建mapper实例，调用查询语句
             userList = sqlSession.getMapper(SysUserMapper.class).getUserList();
         } finally {
-           MyBatisUtils.closeSqlSession(sqlSession);
+            MyBatisUtils.closeSqlSession(sqlSession);
         }
         if (userList != null) {
             //日志循环打印
@@ -74,30 +75,22 @@ class SysUserMapperTest {
     }
 
     @Test
-    public void getUserListByName() throws Exception{
-        SqlSession sqlSession =MyBatisUtils.createSqlSession();
-        try{
-            String resource = "mybatis-config.xml";
-            InputStream is  = Resources.getResourceAsStream(resource);
-            SqlSessionFactory factory  = new SqlSessionFactoryBuilder().build(is);
-            sqlSession = factory.openSession();
-            List<SysUser> userList= sqlSession.getMapper(SysUserMapper.class).getUserListByName("李");
+    public void getUserListByName() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        try {
+            List<SysUser> userList = sqlSession.getMapper(SysUserMapper.class).getUserListByName("李");
             for (SysUser user : userList) {
                 logger.debug("testUserListQuery account:" + user.getAccount() + " and realName:" + user.getRealName());
             }
-        }finally {
+        } finally {
             MyBatisUtils.closeSqlSession(sqlSession);
         }
     }
 
     @Test
-    public void getUserListByEntity() throws Exception{
+    public void getUserListByEntity() throws Exception {
         SqlSession sqlSession = MyBatisUtils.createSqlSession();
-        try{
-            String resource = "mybatis-config.xml";
-            InputStream is = Resources. getResourceAsStream(resource);
-            SqlSessionFactory factory  = new SqlSessionFactoryBuilder().build(is);
-            sqlSession = factory.openSession();
+        try {
             SysUser user = new SysUser();
             user.setRealName("李");
             user.setRoleId(3);
@@ -105,46 +98,38 @@ class SysUserMapperTest {
             for (SysUser user1 : userList) {
                 logger.debug("testUserListQuery account:" + user1.getAccount() + " and realName:" + user1.getRealName());
             }
-        }finally {
+        } finally {
             MyBatisUtils.closeSqlSession(sqlSession);
         }
     }
 
     @Test
-    public void getUserByMap() throws Exception{
+    public void getUserByMap() throws Exception {
         SqlSession sqlSession = MyBatisUtils.createSqlSession();
-        try{
-            String resource = "mybatis-config.xml";
-            InputStream is = Resources.getResourceAsStream(resource);
-            SqlSessionFactory factory  = new SqlSessionFactoryBuilder().build(is);
-            sqlSession = factory.openSession();
-            Map<String,Object> userMap = new HashMap<String,Object>();
+        try {
+            Map<String, Object> userMap = new HashMap<String, Object>();
             userMap.put("rName", "赵");
             userMap.put("rId", 2);
             List<SysUser> userList = sqlSession.getMapper(SysUserMapper.class).getUserListByMap(userMap);
-        }finally{
+        } finally {
             MyBatisUtils.closeSqlSession(sqlSession);
         }
     }
 
     @Test
-    public void getUserListByParam() throws Exception{
+    public void getUserListByParam() throws Exception {
         SqlSession sqlSession = MyBatisUtils.createSqlSession();
-        try{
-            String resource = "mybatis-config.xml";
-            InputStream is = Resources. getResourceAsStream(resource);
-            SqlSessionFactory factory  = new SqlSessionFactoryBuilder().build(is);
-            sqlSession = factory.openSession();
-            List<SysUser> userList = sqlSession.getMapper(SysUserMapper.class).getUserListByParams("赵",2);
+        try {
+            List<SysUser> userList = sqlSession.getMapper(SysUserMapper.class).getUserListByParams("赵", 2);
             for (SysUser user1 : userList) {
                 logger.debug("testUserListQuery 账号:" + user1.getAccount() + "，和真实姓名:" + user1.getRealName());
             }
-        }finally {
+        } finally {
             MyBatisUtils.closeSqlSession(sqlSession);
         }
 
     }
-    
+
     @Test
     public void testGetUserListWithRoleName() throws Exception {
         SqlSession sqlSession = MyBatisUtils.createSqlSession();
@@ -153,20 +138,57 @@ class SysUserMapperTest {
             SysUser queryUser = new SysUser();
             queryUser.setRealName("李"); // 设置查询条件：姓名包含"李"
             queryUser.setRoleId(3);     // 设置查询条件：角色ID为3
-            
+
             // 调用Mapper接口方法
             List<SysUser> userList = sqlSession.getMapper(SysUserMapper.class).getUserListWithRoleName(queryUser);
-            
+
             // 验证并打印结果
             if (userList != null && !userList.isEmpty()) {
                 for (SysUser user : userList) {
-                    logger.debug("用户信息 - 账号:" + user.getAccount() 
-                        + ", 姓名:" + user.getRealName() 
-                        + ", 角色名称:" + user.getUserRoleName());
+                    logger.debug("用户信息 - 账号:" + user.getAccount()
+                            + ", 姓名:" + user.getRealName()
+                            + ", 角色名称:" + user.getUserRoleName());
                 }
                 logger.debug("查询到 " + userList.size() + " 条符合条件的用户记录");
             } else {
                 logger.debug("未查询到符合条件的用户记录");
+            }
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+    }
+
+    @Test
+    public void testGetUserListWithRoleId() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        try {
+            List<SysUser> userList = sqlSession.getMapper(SysUserMapper.class).getUserListByRoleId(2);
+            for (SysUser user : userList) {
+                logger.debug("testGetUserList 用户id：" + user.getId() +
+                        " ,姓名：" + user.getRealName() +
+                        ",职位id：" + user.getSysRole().getId() +
+                        ",code：" + user.getSysRole().getCode() +
+                        ",职位名称：" + user.getSysRole().getRoleName());
+            }
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+    }
+
+    @Test
+    public void testGetUserListAndAddressList() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        try {
+            List<SysUser> userList = sqlSession.getMapper(SysUserMapper.class).getUserAndAddressByUserId(1);
+            for (SysUser user : userList) {
+               logger.debug("userList ===> 账号:" + user.getAccount()+",姓名:"+user.getRealName());
+               for (Address address : user.getAddressList()){
+                   logger.debug("address ===> 地址Id:"+address.getId()+
+                           ",联系人姓名:"+address.getContact()+
+                           ",详情地址:"+address.getAddressDesc()+
+                           ",电话"+address.getTel()+
+                           ",邮政编码"+address.getPostCode());
+               }
             }
         } finally {
             MyBatisUtils.closeSqlSession(sqlSession);

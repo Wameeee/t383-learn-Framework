@@ -2,10 +2,7 @@ package com.ktjiaoyu.mapper.supplier;
 
 import com.ktjiaoyu.entity.Supplier;
 import com.ktjiaoyu.utils.MyBatisUtils;
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
@@ -22,10 +19,6 @@ class SupplierMapperTest {
         List<Supplier> supplierList = null;
 
         try {
-            String resource = "mybatis-config.xml";
-            InputStream inputStream = Resources.getResourceAsStream(resource);
-            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-            sqlSession = sqlSessionFactory.openSession();
             supplierList = sqlSession.selectList("com.ktjiaoyu.mapper.supplier.SupplierMapper.getSupplierList");
 
             for (Supplier supplier : supplierList) {
@@ -43,24 +36,12 @@ class SupplierMapperTest {
         InputStream is = null;
 
         try {
-            // 1. 加载 MyBatis 配置文件
-            String resource = "mybatis-config.xml";
-            is = Resources.getResourceAsStream(resource);
-
-            if (is == null) {
-                throw new RuntimeException("找不到 mybatis-config.xml 配置文件");
-            }
-
-            // 2. 创建 SqlSessionFactory
-            SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
-            sqlSession = factory.openSession();
-
             // 3. 执行查询
             int count = sqlSession.getMapper(SupplierMapper.class).count();
             logger.debug("供货商统计结果: " + count);
 
         } finally {
-           MyBatisUtils.closeSqlSession(sqlSession);
+            MyBatisUtils.closeSqlSession(sqlSession);
             if (is != null) {
                 is.close();
             }

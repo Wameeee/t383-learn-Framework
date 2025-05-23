@@ -46,6 +46,45 @@
           AND u.roleId = #{roleId}
           AND u.roleId = r.id
     </select>
+    <select id="getUserListByRoleId" resultMap="userWithSysRole">
+        SELECT su.*, sr.id as rid, sr.code, sr.roleName
+        FROM sys_user su,
+             sys_role sr
+        WHERE su.roleId = #{roleId}
+          AND su.roleId = sr.id
+    </select>
+    <select id="getUserAndAddressByUserId" resultMap="userWithAddresses">
+        SELECT su.*, ar.id as aid, ar.contact, ar.addressDesc, ar.postCode, ar.tel
+        FROM sys_user su,
+             address ar
+        WHERE su.id = #{userId}
+          AND su.id = ar.userId
+    </select>
+
+
+    <resultMap id="userWithAddresses" type="sysUser">
+        <id property="id" column="id"/>
+        <result property="account" column="account"/>
+        <result property="realName" column="realName"/>
+        <collection property="addressList" ofType="address">
+            <id property="id" column="aid"/>
+            <result property="contact" column="contact"/>
+            <result property="addressDesc" column="addressDesc"/>
+            <result property="postCode" column="postCode"/>
+            <result property="tel" column="tel"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="userWithSysRole" type="sysUser">
+        <id property="id" column="id"/>
+        <result property="realName" column="realName"/>
+        <association property="sysRole" javaType="sysRole">
+            <id property="id" column="rid"/>
+            <result property="code" column="code"/>
+            <result property="roleName" column="roleName"/>
+        </association>
+    </resultMap>
+
     <resultMap id="userWithRoleName" type="sysUser">
         <id property="id" column="id"/>
         <result property="userRoleName" column="roleName"/>

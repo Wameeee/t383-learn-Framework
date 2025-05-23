@@ -3,7 +3,7 @@ package com.ktjiaoyu.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class StorageRecord  implements Serializable {
+public class StorageRecord implements Serializable {
     private Integer id;
     private String srCode;
     private Integer supplierId;

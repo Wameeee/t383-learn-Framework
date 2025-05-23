@@ -25,38 +25,53 @@ public interface SysUserMapper {
     List<SysUser> getUserList();
 
     /**
-     *  根据用户姓名模糊查询列表
+     * 根据用户姓名模糊查询列表
      *
      * @return 用户列表
      */
-   List<SysUser> getUserListByName(String realName);
+    List<SysUser> getUserListByName(String realName);
 
     /**
      * 查询用户列表
+     *
      * @param sysUser
      * @return 用户列表
      */
-   List<SysUser> getUserListByEntity(SysUser sysUser);
+    List<SysUser> getUserListByEntity(SysUser sysUser);
 
     /**
      * 使用MAP查询用户列表
+     *
      * @param map
      * @return 根据map查询出的用户列表
      */
-   List<SysUser> getUserListByMap(Map<String,Object> map);
+    List<SysUser> getUserListByMap(Map<String, Object> map);
 
     /**
      * 使用Param查询用户信息
+     *
      * @param realName
      * @param roleId
      * @return 用户信息
      */
-   List<SysUser> getUserListByParams(@Param("realName") String realName, @Param("roleId") int roleId);
+    List<SysUser> getUserListByParams(@Param("realName") String realName, @Param("roleId") int roleId);
 
     /**
      * 查询用户列表，包括角色名称
+     *
      * @param sysUser
      * @return 用户列表，包括角色名称
      */
-   List<SysUser> getUserListWithRoleName(SysUser sysUser);
+    List<SysUser> getUserListWithRoleName(SysUser sysUser);
+
+    /**
+     * 根据角色id查询用户，包含系统角色实例
+     *
+     * @param roleId
+     * @return 角色id查询用户，包含系统角色实例
+     */
+    List<SysUser> getUserListByRoleId(@Param("roleId") Integer roleId);
+
+    List<SysUser> getUserAndAddressByUserId(@Param("userId") Integer userId);
+
 }

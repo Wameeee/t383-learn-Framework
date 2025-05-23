@@ -4,13 +4,19 @@
 <mapper namespace="com.ktjiaoyu.mapper.storage_record.storage_recordMapper">
 
     <select id="getStorageRecordList" resultType="com.ktjiaoyu.entity.StorageRecord">
-        SELECT * FROM storage_record WHERE goodsName LIKE CONCAT('%',#{goodsName} ,'%')
-        AND supplierId = #{supplierId} AND payStatus = #{payStatus}
+        SELECT *
+        FROM storage_record
+        WHERE goodsName LIKE CONCAT('%', #{goodsName}, '%')
+          AND supplierId = #{supplierId}
+          AND payStatus = #{payStatus}
     </select>
     <select id="getStorageRecordWithSupplierName" resultMap="storageRecordWithSupplierName">
-        SELECT sr.* , sl.supName FROM storage_record sr ,supplier sl WHERE sr.goodsName LIKE CONCAT('%' , #{goodsName}, '%')
-        AND sr.supplierId = #{supplierId}
-        AND sr.supplierId = sl.id
+        SELECT sr.*, sl.supName
+        FROM storage_record sr,
+             supplier sl
+        WHERE sr.goodsName LIKE CONCAT('%', #{goodsName}, '%')
+          AND sr.supplierId = #{supplierId}
+          AND sr.supplierId = sl.id
     </select>
     <resultMap id="storageRecordWithSupplierName" type="storageRecord">
         <id property="id" column="id"/>
