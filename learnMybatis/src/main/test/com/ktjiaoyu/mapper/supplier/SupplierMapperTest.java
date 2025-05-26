@@ -8,6 +8,8 @@ import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -144,6 +146,27 @@ class SupplierMapperTest {
             }
         } finally {
             MyBatisUtils.closeSqlSession(sqlSession);
+        }
+    }
+
+    @Test
+    void testSupplierListByChoose() throws Exception {
+        List<Supplier> supplierList = new ArrayList<Supplier>();
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        try {
+            String supName = "";
+            String supCode = "";
+            String supContact = "";
+            Date createdTime = new SimpleDateFormat("yyyy-MM-dd").parse("2024-11-11");
+            supplierList = sqlSession.getMapper(SupplierMapper.class).listSupplierByChoose(supName, supCode, supContact, createdTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+        logger.info("查询到的供应商数量:" + supplierList.size());
+        for (Supplier supplier : supplierList) {
+            logger.info("查询到的供应商信息:" + supplier);
         }
     }
 }

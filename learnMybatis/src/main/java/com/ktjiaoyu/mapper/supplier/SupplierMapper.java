@@ -3,6 +3,7 @@ package com.ktjiaoyu.mapper.supplier;
 import com.ktjiaoyu.entity.Supplier;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface SupplierMapper {
@@ -52,4 +53,15 @@ public interface SupplierMapper {
      * @return result
      */
     int deleteSupplierById(Integer id);
+
+    /**
+     * 条件查询供货商列表
+     *
+     * @param supName
+     * @param supCode
+     * @param supContact
+     * @param createdTime
+     * @return
+     */
+    List<Supplier> listSupplierByChoose(@Param("supName") String supName, @Param("supCode") String supCode, @Param("supContact") String supContact, @Param("createdTime") Date createdTime);
 }

@@ -11,10 +11,8 @@ import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 class SysUserMapperTest {
     private static final Logger logger = Logger.getLogger(SysUserMapperTest.class);
@@ -290,6 +288,29 @@ class SysUserMapperTest {
             }
         } finally {
             MyBatisUtils.closeSqlSession(sqlSession);
+        }
+    }
+
+    @Test
+    void testGetUserListByChoose() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        List<SysUser> userList = new ArrayList<SysUser>();
+        try {
+            sqlSession = MyBatisUtils.createSqlSession();
+            String realName = "";
+            Integer roleId = null;
+            String account = "";
+            Date createdTime = new SimpleDateFormat("yyyy-MM-dd").parse("2024-11-11");
+            userList = sqlSession.getMapper(SysUserMapper.class)
+                    .selectListByChoose(realName, account, roleId, createdTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+        logger.info("查询到的用户数量:" + userList.size());
+        for (SysUser user : userList) {
+            logger.debug("查询到的用户信息:" + user);
         }
     }
 }

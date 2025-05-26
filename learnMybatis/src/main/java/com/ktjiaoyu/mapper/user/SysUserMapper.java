@@ -3,6 +3,7 @@ package com.ktjiaoyu.mapper.user;
 import com.ktjiaoyu.entity.SysUser;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -112,4 +113,13 @@ public interface SysUserMapper {
      * @return
      */
     List<SysUser> selectList(@Param("realName") String realName, @Param("roleId") Integer roleId);
+
+    /**
+     * 根据Choose查询
+     *
+     * @param account
+     * @param roleId
+     * @return
+     */
+    List<SysUser> selectListByChoose(@Param("realName") String realName, @Param("account") String account, @Param("roleId") Integer roleId, @Param("createdTime") Date createdTime);
 }

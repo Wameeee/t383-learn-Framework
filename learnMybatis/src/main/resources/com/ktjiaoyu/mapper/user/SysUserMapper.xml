@@ -93,12 +93,31 @@
         SELECT *
         from sys_user
         <where>
-        <if test="roleId != null">
-            AND roleId = #{roleId}
-        </if>
+            <if test="roleId != null">
+                AND roleId = #{roleId}
+            </if>
             <if test=" realName !=null and realName != '  '  ">
-            AND u.realName LIKE CONCAT('%', #{realName}, '%')
-        </if>
+                AND u.realName LIKE CONCAT('%', #{realName}, '%')
+            </if>
+        </where>
+    </select>
+    <select id="selectListByChoose" resultType="SysUser">
+        SELECT * FROM sys_user
+        <where>
+            <choose>
+                <when test="realName !=null and realName != '  '   ">
+                    and realName like CONCAT ('%', #{realName} , '%')
+                </when>
+                <when test=" roleId !=null">
+                    and roleId = #{roleId}
+                </when>
+                <when test="account !=null and account != '  '">
+                    and account like CONCAT ('%' , #{realName}, '%')
+                </when>
+                <otherwise>
+                    and YEAR(createdTime) = TEAR (#{createdTime})
+                </otherwise>
+            </choose>
         </where>
     </select>
 

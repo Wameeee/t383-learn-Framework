@@ -52,6 +52,23 @@
         WHERE sl.id = #{id}
           AND sl.id = sr.supplierId
     </select>
+    <select id="listSupplierByChoose" resultType="Supplier">
+        SELECT * FROM supplier
+        <choose>
+            <when test="supName !=null and supName != '  '  ">
+                and supName = #{supName}
+            </when>
+            <when test="supCode !=null and supCode != ' ' ">
+                and supCode = #{supCode}
+            </when>
+            <when test="supContact !=null and supContact != ' ' ">
+                and supContact= #{supContact}
+            </when>
+            <otherwise>
+                and YEAR(createdTime) = TEAR (#{createdTime})
+            </otherwise>
+        </choose>
+    </select>
 
     <resultMap id="supplierListAndStorageRecordList" type="Supplier">
         <id property="id" column="sup_id"/>
