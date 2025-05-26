@@ -45,6 +45,24 @@
 
         </where>
     </select>
+    <select id="selectSrBySupplierIdArray" resultType="StorageRecord">
+        select * from storage_record where supplierId in
+        <foreach collection="array" item="item" open="(" separator="," close=" )">
+            #{item}
+        </foreach>
+    </select>
+    <select id="selectBySupplierIdArrayList" resultType="StorageRecord">
+        select * from storage_record where supplierId in
+        <foreach collection="list" item="item" open="(" separator="," close=" )">
+            #{item}
+        </foreach>
+    </select>
+    <select id="getSrBySupplierIdMap" resultType="StorageRecord">
+        select * from storage_record where supplierId in
+        <foreach collection="list" item="item" open="(" separator="," close=" )">
+            #{item}
+        </foreach>
+    </select>
 
     <resultMap id="storageRecordListAndSupplierList" type="storageRecord">
         <id property="id" column="id"/>

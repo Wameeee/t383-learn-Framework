@@ -120,6 +120,24 @@
             </choose>
         </where>
     </select>
+    <select id="selectListByRoleArray" resultType="SysUser">
+        select * from sys_user where roleId in
+        <foreach collection="array" item="item" open="(" separator="," close=" )">
+            #{item}
+        </foreach>
+    </select>
+    <select id="getUserByRoleIdList" resultType="SysUser">
+        select * from sys_user where roleId in
+        <foreach collection="list" item="item" open="(" separator="," close=" )">
+            #{item}
+        </foreach>
+    </select>
+    <select id="getUserByRoleIdMap" resultType="SysUser">
+        select * from sys_user where roleId in
+        <foreach collection="roleIdList" item="item" open="(" separator="," close=" )">
+            #{item}
+        </foreach>
+    </select>
 
     <resultMap id="userWithAddresses" type="sysUser">
         <id property="id" column="id"/>

@@ -122,4 +122,29 @@ public interface SysUserMapper {
      * @return
      */
     List<SysUser> selectListByChoose(@Param("realName") String realName, @Param("account") String account, @Param("roleId") Integer roleId, @Param("createdTime") Date createdTime);
+
+    /**
+     * 根据角色id 数组 查询用户列表信息
+     *
+     * @param roleIds
+     * @return
+     */
+    List<SysUser> selectListByRoleArray(Integer[] roleIds);
+
+    /**
+     * 根据角色id集合 查询用户列表信息
+     *
+     * @param roleIdList
+     * @return
+     */
+    List<SysUser> getUserByRoleIdList(List<Integer> roleIdList);
+
+    /**
+     * 根据角色存在Map中的ID集合 查询用户列表信息
+     *
+     * @param roleMap
+     * @return
+     */
+    List<SysUser> getUserByRoleIdMap(Map<String, Object> roleMap);
+
 }

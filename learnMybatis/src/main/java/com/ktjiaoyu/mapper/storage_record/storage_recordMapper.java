@@ -4,6 +4,7 @@ import com.ktjiaoyu.entity.StorageRecord;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface storage_recordMapper {
 
@@ -44,4 +45,28 @@ public interface storage_recordMapper {
      * @return
      */
     List<StorageRecord> storageRecordList(@Param("supplierId") Integer supplierId, @Param("payStatus") Integer payStatus, @Param("goodsName") String goodsName);
+
+    /**
+     * 根据供货商Id数组 查询入库记录数据
+     *
+     * @param supplierIds
+     * @return
+     */
+    List<StorageRecord> selectSrBySupplierIdArray(Integer[] supplierIds);
+
+    /**
+     * 根据供货商Id 数组集合 查询入库记录数据
+     *
+     * @param supplierIdList
+     * @return
+     */
+    List<StorageRecord> selectBySupplierIdArrayList(List<Integer> supplierIdList);
+
+    /**
+     * 根据供货商Id Map集合 查询入库记录数据
+     *
+     * @param supplierIdMap
+     * @return
+     */
+    List<StorageRecord> getSrBySupplierIdMap(Map<String, Object> supplierIdMap);
 }

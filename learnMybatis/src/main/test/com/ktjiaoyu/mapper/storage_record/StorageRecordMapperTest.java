@@ -6,7 +6,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 class StorageRecordMapperTest {
@@ -89,6 +92,60 @@ class StorageRecordMapperTest {
             }
         } finally {
             MyBatisUtils.closeSqlSession(sqlSession);
+        }
+    }
+
+    @Test
+    void testSelectSrBySupplierIdArray() {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        List<StorageRecord> storageRecordList = null;
+        Integer[] supplierIds = {100, 101};
+        try {
+            storageRecordList = sqlSession.getMapper(storage_recordMapper.class).selectSrBySupplierIdArray(supplierIds);
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+        logger.info("查询到的商品数量:" + storageRecordList.size());
+        for (StorageRecord storageRecord : storageRecordList) {
+            logger.debug("查询到的商品信息:" + storageRecord.toString());
+        }
+    }
+
+    @Test
+    void testSelectSrBySupplierIdArrayList() {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        List<StorageRecord> storageRecordList = null;
+        List<Integer> sRList = new ArrayList<Integer>();
+        sRList.add(100);
+        sRList.add(101);
+        try {
+            storageRecordList = sqlSession.getMapper(storage_recordMapper.class).selectBySupplierIdArrayList(sRList);
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+        logger.info("查询到的商品数量:" + storageRecordList.size());
+        for (StorageRecord storageRecord : storageRecordList) {
+            logger.debug("查询到的商品信息:" + storageRecord);
+        }
+    }
+
+    @Test
+    void testSelectSrBySupplierIdMap() {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        List<StorageRecord> storageRecordList = null;
+        List<Integer> sRList = new ArrayList<Integer>();
+        sRList.add(100);
+        sRList.add(101);
+        Map<String, Object> sRMap = new HashMap<String, Object>();
+        sRMap.put("list", sRList);
+        try {
+            storageRecordList = sqlSession.getMapper(storage_recordMapper.class).getSrBySupplierIdMap(sRMap);
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+        logger.info("查询到的商品数量:" + storageRecordList.size());
+        for (StorageRecord storageRecord : storageRecordList) {
+            logger.debug("查询到的商品信息:" + storageRecord);
         }
     }
 }

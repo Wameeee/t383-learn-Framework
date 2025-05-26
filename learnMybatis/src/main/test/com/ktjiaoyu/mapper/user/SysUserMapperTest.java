@@ -313,6 +313,60 @@ class SysUserMapperTest {
             logger.debug("查询到的用户信息:" + user);
         }
     }
+
+    @Test
+    void testGetUserByRoleIdByArray() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        List<SysUser> userList = null;
+        Integer[] roleIds = {2, 3};
+        try {
+            userList = sqlSession.getMapper(SysUserMapper.class).selectListByRoleArray(roleIds);
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+        logger.info("查询到的用户数量:" + userList.size());
+        for (SysUser user : userList) {
+            logger.debug("查询到的用户信息:" + user);
+        }
+    }
+
+    @Test
+    void testGetUserByRoleIdList() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        List<SysUser> userList = null;
+        List<Integer> roleList = new ArrayList<Integer>();
+        roleList.add(1);
+        roleList.add(2);
+        try {
+            userList = sqlSession.getMapper(SysUserMapper.class).getUserByRoleIdList(roleList);
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+        logger.info("获取到的用户数量:" + userList.size());
+        for (SysUser user : userList) {
+            logger.info("获取到的用户信息：" + user);
+        }
+    }
+
+    @Test
+    void testGetUserByRoleIdMap() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        List<SysUser> userList = null;
+        List<Integer> roleList = new ArrayList<Integer>();
+        roleList.add(1);
+        roleList.add(2);
+        Map<String, Object> roleMap = new HashMap<String, Object>();
+        roleMap.put("roleIdList", roleList);
+        try {
+            userList = sqlSession.getMapper(SysUserMapper.class).getUserByRoleIdMap(roleMap);
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+        logger.info("获取到的用户数量:" + userList.size());
+        for (SysUser user : userList) {
+            logger.info("获取到的用户信息：" + user);
+        }
+    }
 }
 
 
