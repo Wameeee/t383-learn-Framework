@@ -35,4 +35,13 @@ public interface storage_recordMapper {
      */
     List<StorageRecord> getStorageRecordListAndSupplierList(@Param("supplierId") Integer supplierId);
 
+    /**
+     * 根据供货商id 支付状态 商品名称条件查询
+     *
+     * @param supplierId
+     * @param payStatus
+     * @param goodsName
+     * @return
+     */
+    List<StorageRecord> storageRecordList(@Param("supplierId") Integer supplierId, @Param("payStatus") Integer payStatus, @Param("goodsName") String goodsName);
 }

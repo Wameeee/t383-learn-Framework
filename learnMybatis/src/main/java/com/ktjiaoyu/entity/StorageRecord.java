@@ -139,4 +139,25 @@ public class StorageRecord implements Serializable {
     public void setUpdatedTime(Date updatedTime) {
         this.updatedTime = updatedTime;
     }
+
+    @Override
+    public String toString() {
+        return "StorageRecord{" +
+                "id=" + id +
+                ", srCode='" + srCode + '\'' +
+                ", supplierId=" + supplierId +
+                ", goodsName='" + goodsName + '\'' +
+                ", goodsDesc='" + goodsDesc + '\'' +
+                ", goodsUnit='" + goodsUnit + '\'' +
+                ", goodsCount=" + goodsCount +
+                ", totalAmount=" + totalAmount +
+                ", payStatus=" + payStatus +
+                ", createdUserId=" + createdUserId +
+                ", createdTime=" + createdTime +
+                ", updatedUserId=" + updatedUserId +
+                ", updatedTime=" + updatedTime +
+                ", supplierName='" + supplierName + '\'' +
+                ", supplier=" + supplier +
+                '}';
+    }
 }

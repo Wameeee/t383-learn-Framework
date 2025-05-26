@@ -90,16 +90,16 @@
         <result property="userRoleName" column="roleName"/>
     </resultMap>
     <select id="selectList" resultMap="SysUserResult">
-        SELECT u.*,r.roleName
-        from sys_user u,
-        sys_role r
-        WHERE u.roleId = r.id
+        SELECT *
+        from sys_user
+        <where>
         <if test="roleId != null">
-            AND u.roleId = #{roleId}
+            AND roleId = #{roleId}
         </if>
-        <if test=" realName !=null and realName != ' ' ">
+            <if test=" realName !=null and realName != '  '  ">
             AND u.realName LIKE CONCAT('%', #{realName}, '%')
         </if>
+        </where>
     </select>
 
     <resultMap id="userWithAddresses" type="sysUser">

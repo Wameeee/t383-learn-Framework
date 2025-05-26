@@ -74,4 +74,21 @@ class StorageRecordMapperTest {
             MyBatisUtils.closeSqlSession(sqlSession);
         }
     }
+
+    @Test
+    void testStorageRecordList() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        try {
+            Integer supplierId = 100;
+            Integer payStatus = 1;
+            String goodsName = "水";
+            List<StorageRecord> storageRecordList = sqlSession.getMapper(storage_recordMapper.class).storageRecordList(supplierId, payStatus, goodsName);
+            logger.debug("获取到的入库记录数量:" + storageRecordList.size());
+            for (StorageRecord storageRecord : storageRecordList) {
+                logger.debug("获取到的入库记录信息:" + storageRecord.toString());
+            }
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+    }
 }

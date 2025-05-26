@@ -132,4 +132,24 @@ public class Supplier implements Serializable {
     public void setUpdatedUserId(Integer updatedUserId) {
         this.updatedUserId = updatedUserId;
     }
+
+    @Override
+    public String toString() {
+        return "Supplier{" +
+                "id=" + id +
+                ", supCode='" + supCode + '\'' +
+                ", supName='" + supName + '\'' +
+                ", supDesc='" + supDesc + '\'' +
+                ", supContact='" + supContact + '\'' +
+                ", supPhone='" + supPhone + '\'' +
+                ", supAddress='" + supAddress + '\'' +
+                ", supFax='" + supFax + '\'' +
+                ", bizPicPath='" + bizPicPath + '\'' +
+                ", createdUserId=" + createdUserId +
+                ", createdTime=" + createdTime +
+                ", updatedTime=" + updatedTime +
+                ", updatedUserId=" + updatedUserId +
+                ", storageRecord=" + storageRecord +
+                '}';
+    }
 }

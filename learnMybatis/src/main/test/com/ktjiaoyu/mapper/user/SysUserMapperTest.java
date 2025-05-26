@@ -146,9 +146,7 @@ class SysUserMapperTest {
             // 验证并打印结果
             if (userList != null && !userList.isEmpty()) {
                 for (SysUser user : userList) {
-                    logger.debug("用户信息 - 账号:" + user.getAccount()
-                            + ", 姓名:" + user.getRealName()
-                            + ", 角色名称:" + user.getUserRoleName());
+                    logger.debug("用户信息 - 账号:" + user.getAccount() + ", 姓名:" + user.getRealName() + ", 角色名称:" + user.getUserRoleName());
                 }
                 logger.debug("查询到 " + userList.size() + " 条符合条件的用户记录");
             } else {
@@ -165,11 +163,7 @@ class SysUserMapperTest {
         try {
             List<SysUser> userList = sqlSession.getMapper(SysUserMapper.class).getUserListByRoleId(2);
             for (SysUser user : userList) {
-                logger.debug("testGetUserList 用户id：" + user.getId() +
-                        " ,姓名：" + user.getRealName() +
-                        ",职位id：" + user.getSysRole().getId() +
-                        ",code：" + user.getSysRole().getCode() +
-                        ",职位名称：" + user.getSysRole().getRoleName());
+                logger.debug("testGetUserList 用户id：" + user.getId() + " ,姓名：" + user.getRealName() + ",职位id：" + user.getSysRole().getId() + ",code：" + user.getSysRole().getCode() + ",职位名称：" + user.getSysRole().getRoleName());
             }
         } finally {
             MyBatisUtils.closeSqlSession(sqlSession);
@@ -184,11 +178,7 @@ class SysUserMapperTest {
             for (SysUser user : userList) {
                 logger.debug("userList ===> 账号:" + user.getAccount() + ",姓名:" + user.getRealName());
                 for (Address address : user.getAddressList()) {
-                    logger.debug("address ===> 地址Id:" + address.getId() +
-                            ",联系人姓名:" + address.getContact() +
-                            ",详情地址:" + address.getAddressDesc() +
-                            ",电话" + address.getTel() +
-                            ",邮政编码" + address.getPostCode());
+                    logger.debug("address ===> 地址Id:" + address.getId() + ",联系人姓名:" + address.getContact() + ",详情地址:" + address.getAddressDesc() + ",电话" + address.getTel() + ",邮政编码" + address.getPostCode());
                 }
             }
         } finally {
@@ -287,14 +277,16 @@ class SysUserMapperTest {
         }
     }
 
+    @Test
     void testGetUserList() throws Exception {
         SqlSession sqlSession = MyBatisUtils.createSqlSession();
         try {
-            String realName = "赵";
+            String realName = null;
             Integer roleId = null;
             List<SysUser> userList = sqlSession.getMapper(SysUserMapper.class).selectList(realName, roleId);
+            logger.debug("查询到的用户数量:" + userList.size());
             for (SysUser user : userList) {
-                logger.debug("userList ===> <账号>:" + user.getAccount() + ",<姓名>:" + user.getRealName());
+                logger.debug("userList ===> <查询到的用户信息>:" + user.toString());
             }
         } finally {
             MyBatisUtils.closeSqlSession(sqlSession);

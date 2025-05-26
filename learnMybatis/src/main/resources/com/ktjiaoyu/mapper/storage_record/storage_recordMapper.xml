@@ -26,6 +26,26 @@
           AND sr.supplierId = sl.id
     </select>
 
+    <resultMap id="storageRecordResult" type="StorageRecord">
+        <result property="supplierId" column="supplierId"/>
+    </resultMap>
+    <select id="storageRecordList" resultMap="storageRecordResult">
+        SELECT sr.* , sl.supName FROM storage_record sr , supplier sl
+        <where>
+            sr.supplierId = sl.id
+            <if test="goodsName != null">
+                AND sr.goodsName LIKE CONCAT ('%', #{goodsName} ,'%')
+            </if>
+            <if test="supplierId != null">
+                AND sr.supplierId = #{supplierId}
+            </if>
+            <if test="payStatus !=null">
+                AND sr.payStatus = #{payStatus}
+            </if>
+
+        </where>
+    </select>
+
     <resultMap id="storageRecordListAndSupplierList" type="storageRecord">
         <id property="id" column="id"/>
         <result property="goodsName" column="goodsName"/>
