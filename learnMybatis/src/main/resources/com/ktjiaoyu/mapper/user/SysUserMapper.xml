@@ -86,6 +86,21 @@
           AND su.id = ar.userId
     </select>
 
+    <resultMap type="sysUser" id="SysUserResult">
+        <result property="userRoleName" column="roleName"/>
+    </resultMap>
+    <select id="selectList" resultMap="SysUserResult">
+        SELECT u.*,r.roleName
+        from sys_user u,
+        sys_role r
+        WHERE u.roleId = r.id
+        <if test="roleId != null">
+            AND u.roleId = #{roleId}
+        </if>
+        <if test=" realName !=null and realName != ' ' ">
+            AND u.realName LIKE CONCAT('%', #{realName}, '%')
+        </if>
+    </select>
 
     <resultMap id="userWithAddresses" type="sysUser">
         <id property="id" column="id"/>

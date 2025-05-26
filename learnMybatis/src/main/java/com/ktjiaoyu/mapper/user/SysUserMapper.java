@@ -103,4 +103,13 @@ public interface SysUserMapper {
      * @return
      */
     int deleteUserById(@Param("id") Integer id);
+
+    /**
+     * 查询用户列表(分页)
+     *
+     * @param realName
+     * @param roleId
+     * @return
+     */
+    List<SysUser> selectList(@Param("realName") String realName, @Param("roleId") Integer roleId);
 }

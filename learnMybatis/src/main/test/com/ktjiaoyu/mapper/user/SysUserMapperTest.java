@@ -286,6 +286,20 @@ class SysUserMapperTest {
             MyBatisUtils.closeSqlSession(sqlSession);
         }
     }
+
+    void testGetUserList() throws Exception {
+        SqlSession sqlSession = MyBatisUtils.createSqlSession();
+        try {
+            String realName = "赵";
+            Integer roleId = null;
+            List<SysUser> userList = sqlSession.getMapper(SysUserMapper.class).selectList(realName, roleId);
+            for (SysUser user : userList) {
+                logger.debug("userList ===> <账号>:" + user.getAccount() + ",<姓名>:" + user.getRealName());
+            }
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+    }
 }
 
 
