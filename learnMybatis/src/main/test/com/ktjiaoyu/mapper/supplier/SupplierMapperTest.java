@@ -169,4 +169,50 @@ class SupplierMapperTest {
             logger.info("查询到的供应商信息:" + supplier);
         }
     }
+
+    @Test
+    void testSupplierUpdate() throws Exception {
+        SqlSession sqlSession = null;
+        Integer id = 100;
+        int count = 0;
+        Supplier supplier = new Supplier();
+        supplier.setId(id);
+        supplier.setSupDesc("我爱洗澡皮肤好好");
+        supplier.setSupPhone("13800022222");
+        try {
+            sqlSession = MyBatisUtils.createSqlSession();
+            count = sqlSession.getMapper(SupplierMapper.class).updateSupplierById(supplier);
+            sqlSession.commit();
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+        logger.info("修改Id =" + id + "的用户修改" + (count == 0 ? "失败" : "成功"));
+    }
+
+    @Test
+    void testSelectPageList() {
+        SqlSession sqlSession = null;
+        List<Supplier> supplierList = new ArrayList<>();
+        try {
+            sqlSession = MyBatisUtils.createSqlSession();
+            String supName = "湖南";  // 名称中包含"北"的供应商
+            String supCode = "";    // 不限制编码
+            String supContact = ""; // 不限制联系人
+            Integer pageIndex = 1;  // 第一页
+            Integer pageSize = 5;   // 每页5条
+            Integer pageBegin = (pageIndex - 1) * pageSize;
+
+            supplierList = sqlSession.getMapper(SupplierMapper.class)
+                    .selectPageList(supName, supCode, supContact, pageBegin, pageSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+
+        logger.info("分页查询到的供应商数量:" + supplierList.size());
+        for (Supplier supplier : supplierList) {
+            logger.info("供应商信息:" + supplier);
+        }
+    }
 }

@@ -10,17 +10,18 @@
     </insert>
     <update id="updateSupplierById" parameterType="supplier">
         UPDATE supplier
-        SET supCode=#{supCode},
-            supName=#{supName},
-            supDesc=#{supDesc},
-            supContact=#{supContact},
-            supPhone=#{supPhone},
-            supAddress=#{supAddress},
-            supFax=#{supFax},
-            bizPicPath=#{bizPicPath},
-            updatedUserId=#{updatedUserId},
-            updatedTime=#{updatedTime}
-        WHERE id = #{id}
+        <trim prefix="set" suffixOverrides="," suffix="where id = #{id}">
+            <if test="supCode != null">supCode=#{supCode},</if>
+            <if test="supName != null">supName=#{supName},</if>
+            <if test="supDesc != null">supDesc=#{supDesc},</if>
+            <if test="supContact != null">supContact=#{supContact},</if>
+            <if test="supPhone != null">supPhone=#{supPhone},</if>
+            <if test="supAddress != null">supAddress=#{supAddress},</if>
+            <if test="supFax != null">supFax=#{supFax},</if>
+            <if test="bizPicPath != null">bizPicPath=#{bizPicPath},</if>
+            <if test="updatedUserId != null">updatedUserId=#{updatedUserId},</if>
+            <if test="updatedTime != null">updatedTime=#{updatedTime},</if>
+        </trim>
     </update>
     <delete id="deleteSupplierById" parameterType="supplier">
         DELETE
@@ -84,4 +85,21 @@
             <result property="payStatus" column="payStatus"/>
         </collection>
     </resultMap>
+
+    <select id="selectPageList" resultType="Supplier">
+        SELECT * FROM supplier
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="supName != null and supName != '  '">
+                AND supName LIKE CONCAT('%', #{supName}, '%')
+            </if>
+            <if test="supCode != null and supCode != '  '">
+                AND supCode LIKE CONCAT('%', #{supCode}, '%')
+            </if>
+            <if test="supContact != null and supContact != '  '">
+                AND supContact LIKE CONCAT('%', #{supContact}, '%')
+            </if>
+        </trim>
+        ORDER BY createdTime DESC
+        LIMIT #{pageBegin}, #{pageSize}
+    </select>
 </mapper>

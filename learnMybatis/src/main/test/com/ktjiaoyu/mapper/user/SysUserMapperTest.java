@@ -367,6 +367,51 @@ class SysUserMapperTest {
             logger.info("获取到的用户信息：" + user);
         }
     }
+
+    @Test
+    void testUpdateUserById() throws Exception {
+        SqlSession sqlSession = null;
+        Integer userId = 16;
+        int count = 0;
+        try {
+            SysUser user = new SysUser();
+            user.setId(userId);
+            user.setRealName("测试用户修改");
+            user.setUpdateUserId(1);
+            user.setUpdateTime(new Date());
+            sqlSession = MyBatisUtils.createSqlSession();
+            count = sqlSession.getMapper(SysUserMapper.class).updateUser(user);
+            sqlSession.commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+        logger.info("修改Id =" + userId + "的用户修改" + (count == 0 ? "失败" : "成功"));
+    }
+
+    @Test
+    void testGetUserPage() throws Exception {
+        SqlSession sqlSession = null;
+        List<SysUser> userList = new ArrayList<SysUser>();
+        try {
+            sqlSession = MyBatisUtils.createSqlSession();
+            String realName = "";
+            Integer roleId = 2;
+            Integer pageIndex = 2;
+            Integer pageSize = 2;
+            Integer pageBegin = (pageIndex - 1) * pageSize;
+            userList = sqlSession.getMapper(SysUserMapper.class).selectPageList(realName, roleId, pageBegin, pageSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+        logger.info("<查询到的用户数量>:" + userList.size());
+        for (SysUser user : userList) {
+            logger.info("<查询到的用户信息>:" + user);
+        }
+    }
 }
 
 

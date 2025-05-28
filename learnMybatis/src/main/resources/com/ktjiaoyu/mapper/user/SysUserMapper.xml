@@ -11,17 +11,19 @@
     </insert>
     <update id="updateUser" parameterType="sysUser">
         UPDATE sys_user
-        SET account=#{account},
-            realName=#{realName},
-            password=#{password},
-            sex=#{sex},
-            phone=#{phone},
-            address=#{address},
-            birthday=#{birthday},
-            roleId=#{roleId},
-            updatedUserId=#{updateUserId},
-            updatedTime=#{updateTime}
-        WHERE id = #{id}
+        <trim prefix="set" suffixOverrides="," suffix="where id = #{id}">
+            <if test="account !=null">account=#{account},</if>
+            <if test="realName !=null">realName=#{realName},</if>
+            <if test="password !=null">password=#{password},</if>
+            <if test="sex !=null">sex=#{sex},</if>
+            <if test="phone !=null">phone=#{phone},</if>
+            <if test="address !=null">address=#{address},</if>
+            <if test="birthday !=null">birthday=#{birthday},</if>
+            <if test="roleId !=null">roleId=#{roleId},</if>
+            <if test="updateUserId !=null">updatedUserId=#{updateUserId},</if>
+            <if test="updateTime !=null">updatedTime=#{updateTime},</if>
+        </trim>
+
     </update>
     <delete id="deleteUserById" parameterType="sysUser">
         DELETE
@@ -92,14 +94,14 @@
     <select id="selectList" resultMap="SysUserResult">
         SELECT *
         from sys_user
-        <where>
+        <trim prefix="where" prefixOverrides="and|or">
             <if test="roleId != null">
                 AND roleId = #{roleId}
             </if>
             <if test=" realName !=null and realName != '  '  ">
                 AND u.realName LIKE CONCAT('%', #{realName}, '%')
             </if>
-        </where>
+        </trim>
     </select>
     <select id="selectListByChoose" resultType="SysUser">
         SELECT * FROM sys_user
@@ -137,6 +139,19 @@
         <foreach collection="roleIdList" item="item" open="(" separator="," close=" )">
             #{item}
         </foreach>
+    </select>
+    <select id="selectPageList" resultType="SysUser">
+        select * from sys_user
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="realName !=null and realName != '  ' ">
+                and realName like concat ('%',#{realName},'%')
+            </if>
+            <if test="roleId != null">
+                and roleId = #{roleId}
+            </if>
+        </trim>
+        order by createdTime desc
+        limit #{pageBegin},#{pageSize}
     </select>
 
     <resultMap id="userWithAddresses" type="sysUser">

@@ -69,4 +69,20 @@ public interface storage_recordMapper {
      * @return
      */
     List<StorageRecord> getSrBySupplierIdMap(Map<String, Object> supplierIdMap);
+
+    /**
+     * 分页查询入库单列表
+     *
+     * @param goodsName  商品名称
+     * @param supplierId 供应商ID
+     * @param payStatus  支付状态
+     * @param pageBegin  起始位置
+     * @param pageSize   每页大小
+     * @return 入库单列表
+     */
+    List<StorageRecord> selectPageList(@Param("goodsName") String goodsName,
+                                       @Param("supplierId") Integer supplierId,
+                                       @Param("payStatus") Integer payStatus,
+                                       @Param("pageBegin") Integer pageBegin,
+                                       @Param("pageSize") Integer pageSize);
 }

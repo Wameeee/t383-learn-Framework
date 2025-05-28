@@ -148,4 +148,31 @@ class StorageRecordMapperTest {
             logger.debug("查询到的商品信息:" + storageRecord);
         }
     }
+
+    @Test
+    void testSelectPageList() {
+        SqlSession sqlSession = null;
+        List<StorageRecord> storageRecordList = new ArrayList<>();
+        try {
+            sqlSession = MyBatisUtils.createSqlSession();
+            String goodsName = "水";
+            Integer supplierId = null; // 不限供应商
+            Integer payStatus = 1;  // 已支付
+            Integer pageIndex = 1;  // 第一页
+            Integer pageSize = 5;   // 每页5条
+            Integer pageBegin = (pageIndex - 1) * pageSize;
+
+            storageRecordList = sqlSession.getMapper(storage_recordMapper.class)
+                    .selectPageList(goodsName, supplierId, payStatus, pageBegin, pageSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            MyBatisUtils.closeSqlSession(sqlSession);
+        }
+
+        logger.info("分页查询到的入库单数量:" + storageRecordList.size());
+        for (StorageRecord storageRecord : storageRecordList) {
+            logger.info("入库单信息:" + storageRecord);
+        }
+    }
 }

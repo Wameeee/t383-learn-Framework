@@ -64,4 +64,20 @@ public interface SupplierMapper {
      * @return
      */
     List<Supplier> listSupplierByChoose(@Param("supName") String supName, @Param("supCode") String supCode, @Param("supContact") String supContact, @Param("createdTime") Date createdTime);
+
+    /**
+     * 分页查询供货商列表
+     *
+     * @param supName    供货商名称
+     * @param supCode    供货商编码
+     * @param supContact 联系人
+     * @param pageBegin  起始位置
+     * @param pageSize   每页大小
+     * @return 供货商列表
+     */
+    List<Supplier> selectPageList(@Param("supName") String supName,
+                                  @Param("supCode") String supCode,
+                                  @Param("supContact") String supContact,
+                                  @Param("pageBegin") Integer pageBegin,
+                                  @Param("pageSize") Integer pageSize);
 }

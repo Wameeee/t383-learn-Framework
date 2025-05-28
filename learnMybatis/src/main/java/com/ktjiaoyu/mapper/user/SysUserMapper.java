@@ -147,4 +147,15 @@ public interface SysUserMapper {
      */
     List<SysUser> getUserByRoleIdMap(Map<String, Object> roleMap);
 
+    /**
+     * 分页查询用户列表
+     *
+     * @param realName
+     * @param roleId
+     * @param pageBegin
+     * @param pageSize
+     * @return
+     */
+    List<SysUser> selectPageList(@Param("realName") String realName, @Param("roleId") Integer roleId, @Param("pageBegin") Integer pageBegin, @Param("pageSize") Integer pageSize);
+
 }

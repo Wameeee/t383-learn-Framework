@@ -85,4 +85,23 @@
         <result property="supplierName" column="supName"/>
     </resultMap>
 
+    <select id="selectPageList" resultMap="storageRecordResult">
+        SELECT sr.*, sl.supName
+        FROM storage_record sr, supplier sl
+        <where>
+            sr.supplierId = sl.id
+            <if test="goodsName != null and goodsName != '  '">
+                AND sr.goodsName LIKE CONCAT('%', #{goodsName}, '%')
+            </if>
+            <if test="supplierId != null">
+                AND sr.supplierId = #{supplierId}
+            </if>
+            <if test="payStatus != null">
+                AND sr.payStatus = #{payStatus}
+            </if>
+        </where>
+        ORDER BY sr.createdTime DESC
+        LIMIT #{pageBegin}, #{pageSize}
+    </select>
+
 </mapper>
